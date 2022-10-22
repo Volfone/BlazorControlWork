@@ -1,0 +1,28 @@
+﻿@page "/counter"
+@using BlazorControlWork.Data
+@inject NavigationManager navigationaManager
+
+<PageTitle>Counter</PageTitle>
+
+<div class="login" @onclick="OpenLogin">@userName @userSurname</div>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+    static User user = ActiveLogin.User;
+    public string @userName = user.Name;
+    public string @userSurname = user.Surname;
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+    private void OpenLogin()
+    {
+        navigationaManager.NavigateTo("loginpage");
+    }
+}

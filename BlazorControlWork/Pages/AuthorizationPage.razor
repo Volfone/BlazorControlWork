@@ -1,0 +1,40 @@
+﻿@page "/authorizationpage"
+@using BlazorControlWork.Data
+@inject NavigationManager navigationaManager
+
+<PageTitle>Authorization</PageTitle>
+<h1>Authorization</h1>
+
+<h6>Login</h6>
+<input name="login" type="text" @bind-value="@login"><br>
+
+<h6>Password</h6>
+<input name="password" type="password" @bind-value="@password"><br><br>
+<button class="btn btn-primary" @onclick="Authorization">log in</button><br>
+<label>@text</label>
+
+@code {
+    public string @login = "";
+    public string @password = "";
+    public string @text = "";
+
+
+    private void Authorization()
+    {
+        User user = MongoExamples.Find(login);
+        if(user == null)
+        {
+            text = "User not found";
+            return;
+        }
+        if(user.Password == password)
+        {
+            ActiveLogin.User = MongoExamples.Find(login);
+            navigationaManager.NavigateTo("counter");
+        }
+        else
+        {
+            text = "Wrong password";
+        }
+    }
+}

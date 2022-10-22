@@ -1,0 +1,49 @@
+﻿@page "/registrationpage"
+@using BlazorControlWork.Data
+@inject NavigationManager navigationaManager
+
+<PageTitle>Registration</PageTitle>
+<h1>Registration</h1>
+
+<input name="login" placeholder="Login" type="text" @bind-value="@login"><br><br>
+
+<input name="password" placeholder="Password" type="password" @bind-value="@password"><br><br>
+
+<input name="passwordConf" placeholder="PasswordConfirmation" type="password" @bind-value="@passwordConf"><br><br>
+
+<input name="name" placeholder="Name" type="text" @bind-value="@name"><br><br>
+
+<input name="surname" placeholder="Surname" type="text" @bind-value="@surname"><br><br>
+
+<input name="email" placeholder="Email" type="text" @bind-value="@email"><br><br>
+
+<button class="btn btn-primary" @onclick="Registration">sign in</button><br>
+<label>@text</label>
+
+@code {
+    public string @text = "";
+    public string @login = "";
+    public string @password = "";
+    public string @passwordConf = "";
+    public string @name = "";
+    public string @surname = "";
+    public string @email = "";
+
+    private void Registration()
+    {
+        if(login == "" || password == "" || name == "" || surname == "" || email == "")
+        {
+            return;
+        }
+        if(password == passwordConf)
+        {
+            User user = new User(login, password, name, surname, email);
+            MongoExamples.AddToDB(user);
+            navigationaManager.NavigateTo("authorizationpage");
+        }
+        else
+        {
+            text = "password not confirmed";
+        }
+    }
+}

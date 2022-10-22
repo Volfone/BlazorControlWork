@@ -1,0 +1,24 @@
+﻿@page "/loginpage"
+@using BlazorControlWork.Data
+@inject NavigationManager navigationaManager
+
+<PageTitle>Login</PageTitle>
+<h1>@login</h1>
+
+<h6>Name: @name</h6>
+<h6>Surname: @surname</h6>
+<h6>Email: @email</h6>
+<button class="btn btn-primary" @onclick="Logout">log out</button>
+
+@code {
+    public string @login = ActiveLogin.User.Login;
+    public string @name = ActiveLogin.User.Name;
+    public string @surname = ActiveLogin.User.Surname;
+    public string @email = ActiveLogin.User.Email;
+
+    private void Logout()
+    {
+        ActiveLogin.User = null;
+        navigationaManager.NavigateTo("authorizationpage");
+    }
+}
